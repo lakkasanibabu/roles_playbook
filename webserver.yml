@@ -1,0 +1,21 @@
+--- #CONTROL PLAYBOOK FOR WEBSERVERS
+
+- hosts: all
+  user: root
+  connection: ssh
+  become: yes
+  gather_facts: yes
+  pre_tasks:
+  - name: playbook start time
+    raw: date > /root/logs/start_of_webserver_playbook.log
+  - name: removing he list of packages
+    yum: name={{ item }} state=absent
+    with_items:
+     - httpd
+     - elinks
+     - telnet
+  roles:
+  - webserver
+  post_tasks:
+  - name: end of playbook
+    raw: date > /root/logs/end_of_webserver_playbook.log  

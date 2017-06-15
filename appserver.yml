@@ -1,0 +1,9 @@
+--- # CONTROL PLAYBOOK FOR APPSERVERS
+
+- hosts: all
+  user: root
+  connection: ssh
+  become: yes
+  gather_facts: yes
+  roles:
+  - appserver

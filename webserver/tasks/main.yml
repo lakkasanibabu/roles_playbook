@@ -1,0 +1,17 @@
+- name: installing HTTPD
+  yum: name={{ redhatapache }} state=latest
+  when: ansible_os_family=='RedHat'
+  notify: restarthttpd
+- name: installing apache2
+  yum: name={{ debianapache2 }} state=latest
+  when: ansible_os_family=='Debian'
+  notify: restartapache2
+- include: /root/list_packages.yml
+- include: /root/check_package.yml
+- name: fetching logs from remote hosts
+  fetch: src=/root/pkgs_elinks.log dest=/root/{{ inventory_hostname }}_elinks.log state=touch flat=yes
+- name: fetching logs from remote hosts
+  fetch: src=/root/pkgs_telnet.log dest=/root/{{ inventory_hostname }}_telnet.log state=touch flat=yes
+- name: fetching logs from remote hosts
+  fetch: src=/root/pkgs_httpd.log dest=/root/{{ inventory_hostname }}_httpd.log state=touch flat=yes
+

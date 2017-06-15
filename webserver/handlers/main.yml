@@ -1,0 +1,4 @@
+- name: restarthttpd
+  service: name={{ redhatapache}} state=restarted
+- name: restartapache2
+  service: name={{ Debianapache2 }} state=restarted
